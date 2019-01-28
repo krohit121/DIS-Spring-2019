@@ -36,8 +36,8 @@ namespace DIS_Assignment1
 
             Console.ReadLine();
 
-            // The said assignment helped me in refreshing my knowledge of loops and conditional statements and learned about a few new funtions.
-
+            // The said assignment helped me in refreshing my knowledge of some of the basic concepts like loops and other conditional statements 
+            // Also the assignment has helped i getting good hands-on with the visual studio
         }
 
         public static void printPrimeNumbers(int x, int y)
@@ -49,7 +49,7 @@ namespace DIS_Assignment1
                 {
                     counter = 0;
                     //the loop will check whether the number 'n' is divisible by any number between 2 and half of the number n. If it will be divisible then it will increment the counter 
-                    // and in final result it will display total prime number between  'x' and 'y'.
+                    // Also in final result it will display total prime number between  'x' and 'y'.
                     for (i = 2; i <= n / 2; i++)
                     {
                         if (n % i == 0)
@@ -74,7 +74,7 @@ namespace DIS_Assignment1
             try
             {
                 int i, sum = 0;
-                int x = 1;// initialized variable x=1
+                int x = 1;// initialized variable as x=1
                 for (i = 1; i <= n; i++)// the loop will iterate from number "1" all the way to "n" and it will sum each value and every value with variable "sum"
                 {
                     sum = sum + x;//adding variable "sum" with "x" to get next number in series
@@ -121,19 +121,23 @@ namespace DIS_Assignment1
 
         public static long binaryToDecimal(long n)
         {
+            long dVal = 0, bVal = 1, rem;
             try
             {
-                //it will convert to string
-                string strBin = Convert.ToString(n);
-                return Convert.ToInt64(strBin, 2);//this will convert binary value into decimal
-
+                while (n > 0)
+                {
+                    rem = n % 10;               //taking  the value in unit digit place(rightmost bit)
+                    dVal = (dVal + rem) * bVal;  //calculating decimal value
+                    n = n / 10;
+                    bVal = bVal * 2;
+                }
             }
             catch
             {
                 Console.WriteLine("Exception occured while computing binaryToDecimal()");
-                return 0;
             }
-            
+
+            return dVal;
         }
 
         public static void printTriangle(int n)
@@ -141,12 +145,12 @@ namespace DIS_Assignment1
             try
             {
                 int gap, x;
-                for (int i = 1; i <= n; i++) // Defining total number of layer's for pramid  
+                for (int i = 1; i <= n; i++)
                 {
-                    for (gap = 1; gap <= (n - i); gap++) //defining loop for the space 
-                        Console.Write(" ");
+                    for (gap = 1; gap <= (n - i); gap++) //iterating through loop 
+                        Console.Write(" "); //printing spaces less than the #of rows
                     for (x = 1; x <= i; x++) //incrementing the value  
-                        Console.Write('*');
+                        Console.Write('*'); //printing "*" for #of rows
                     for (x = (i - 1); x >= 1; x--) //decrementing the value  
                         Console.Write("*");
                     Console.WriteLine();
@@ -162,33 +166,26 @@ namespace DIS_Assignment1
         {
             try
             {
-                int i, j, counter;
-                int[] freq = new int[100];
                 int n = a.Length;
-                for (i = 0; i < n; i++)
+
+                Boolean[] b = new Boolean[n];
+                Console.WriteLine("Computed Frequency is:");
+                for (int i = 0; i < n; i++)
                 {
-                    counter = 1;
-                    for (j = i + 1; j < n; j++)
+                    if (b[i] == true)
+                        continue;
+                    int counter = 1;
+                    for (int j = i + 1; j < n; j++)
                     {
-                        if (a[i] == a[j])
+                        if (a[i] == a[j])   // Applying if condition to check if array value matches the other value
                         {
-                            counter++;
-                            freq[j] = 0;
+                            b[j] = true;     //making the boolean value "True"
+                            counter++;     //increment the counter
                         }
+
                     }
 
-                    if (freq[i] != 0)
-                    {
-                        freq[i] = counter;
-                    }
-                }
-                Console.Write("\nThe frequency of all elements of the array : \n");
-                for (i = 0; i < n; i++)
-                {
-                    if (freq[i] != 0)
-                    {
-                        Console.Write("{0} occurs {1} times\n", a[i], freq[i]);
-                    }
+                    Console.WriteLine(a[i] + "  :  " + counter);
                 }
             }
             catch
